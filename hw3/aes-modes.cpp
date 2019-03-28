@@ -18,10 +18,17 @@ int main(int argc, char* argv[]) {
     memset( key, 0x00, CryptoPP::AES::DEFAULT_KEYLENGTH );
     memset( iv, 0x00, CryptoPP::AES::BLOCKSIZE );
 
+    stringstream ss;
+
     string keyin = "1234567890123456";
     string ivin = "0000000000000000";
     string dst;
-    CryptoPP::StringSource ss1(keyin,true,new CryptoPP::HexEncoder(new CryptoPP::ArraySink(&key[0],16)));
+
+    for(int i = 0 ; i < CryptoPP::AES::DEFAULT_KEYLENGTH ; i++){
+        key[i] = (int)keyin[i];
+        iv[i] = (int)ivin[i];
+    }
+    /*CryptoPP::StringSource ss1(keyin,true,new CryptoPP::HexEncoder(new CryptoPP::ArraySink(&key[0],16)));
     CryptoPP::StringSource ss2(ivin,true,new CryptoPP::HexEncoder(new CryptoPP::ArraySink(&iv[0],16)));
     key[0]= 0x31;
     key[1]= 0x32;
@@ -56,7 +63,7 @@ int main(int argc, char* argv[]) {
     iv[13]= 0x30;
     iv[14]= 0x30;
     iv[15]= 0x30;
-
+*/
     //
     // String and Sink setup
     //
