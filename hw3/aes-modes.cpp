@@ -29,8 +29,8 @@ int main(int argc, char* argv[]) {
     // String and Sink setup
     //
 
-    string plaintext = "AES is efficient in both software and hardware.";
-    //string plaintext = "Hello World!";
+    //string plaintext = "AES is efficient in both software and hardware.";
+    string plaintext = "Hello World!";
     string ciphertext[4];
     string decryptedtext;
 
@@ -44,27 +44,27 @@ int main(int argc, char* argv[]) {
     CryptoPP::ECB_Mode_ExternalCipher::Encryption ecbEncryption2( aesEncryption);
 
     CryptoPP::StreamTransformationFilter stfEncryptor1(ecbEncryption1, new CryptoPP::StringSink( ciphertext[0] ) ,CryptoPP::StreamTransformationFilter::ZEROS_PADDING);
-    stfEncryptor1.Put( reinterpret_cast<const unsigned char*>( plaintext.c_str() ), plaintext.length() + 1);
+    stfEncryptor1.Put( reinterpret_cast<const unsigned char*>( plaintext.c_str() ), plaintext.length() );
     stfEncryptor1.MessageEnd();
 
     CryptoPP::StreamTransformationFilter stfEncryptor2(ecbEncryption2, new CryptoPP::StringSink( ciphertext[1] ) ,CryptoPP::StreamTransformationFilter::PKCS_PADDING);
-    stfEncryptor2.Put( reinterpret_cast<const unsigned char*>( plaintext.c_str() ), plaintext.length() + 1);
+    stfEncryptor2.Put( reinterpret_cast<const unsigned char*>( plaintext.c_str() ), plaintext.length() );
     stfEncryptor2.MessageEnd();
 
     CryptoPP::StreamTransformationFilter stfEncryptor3(cbcEncryption1, new CryptoPP::StringSink( ciphertext[2] ) ,CryptoPP::StreamTransformationFilter::ZEROS_PADDING);
-    stfEncryptor3.Put( reinterpret_cast<const unsigned char*>( plaintext.c_str() ), plaintext.length() + 1);
+    stfEncryptor3.Put( reinterpret_cast<const unsigned char*>( plaintext.c_str() ), plaintext.length() );
     stfEncryptor3.MessageEnd();
 
     CryptoPP::StreamTransformationFilter stfEncryptor4(cbcEncryption2, new CryptoPP::StringSink( ciphertext[3] ) ,CryptoPP::StreamTransformationFilter::PKCS_PADDING);
-    stfEncryptor4.Put( reinterpret_cast<const unsigned char*>( plaintext.c_str() ), plaintext.length() + 1);
+    stfEncryptor4.Put( reinterpret_cast<const unsigned char*>( plaintext.c_str() ), plaintext.length() );
     stfEncryptor4.MessageEnd();
 
     fout.open("Out.txt",ios::out);
 
     for( int i = 0; i < 4 ; i++ ) {
         for(int j = 0 ; j < ciphertext[i].size(); j++){
-            cout << hex << (0xFF & static_cast<byte>(ciphertext[i][j]));
-            fout << hex << (0xFF & static_cast<byte>(ciphertext[i][j]));
+            cout << setfill('0') << setw(2) << hex << (0xFF & static_cast<byte>(ciphertext[i][j]));
+            fout << setfill('0') << setw(2) << hex << (0xFF & static_cast<byte>(ciphertext[i][j]));
         }
         cout << endl << endl;
         fout << endl << endl;
