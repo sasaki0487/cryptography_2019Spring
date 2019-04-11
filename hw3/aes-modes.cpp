@@ -29,8 +29,7 @@ int main(int argc, char* argv[]) {
     // String and Sink setup
     //
 
-    //string plaintext = "AES is efficient in both software and hardware.";
-    string plaintext = "Hello World!";
+    string plaintext = "AES is efficient in both software and hardware.";
     string ciphertext[4];
     string decryptedtext;
 
